@@ -1,9 +1,10 @@
+import React, { FC } from 'react'
 import { Card, Space, Typography } from "antd"
 
 type PlateProps = {
   text: string;
 }
-export const Plate = ({text}: PlateProps) => {
+export const Plate: FC<PlateProps> = ({text}) => {
   const { Text } = Typography;
   return (
     <Card style={{height: '100%', width: '100vw', display: 'flex', justifyContent: 'center'}}>

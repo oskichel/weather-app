@@ -1,48 +1,49 @@
-import { Card, Space, Typography } from 'antd';
-import { conditionTypes } from './constants';
-import { longDateFormatter } from './utils';
+import React, { FC } from 'react'
+import { Card, Space, Typography } from 'antd'
+import { conditionTypes } from './constants'
+import { fullDateFormatter } from '../../utils/fullDateFormatter';
 
-type WeatherTabsProps = {
+type TWeatherTabsProps = {
     date: string;
-    temp_min: number;
-    temp_max?: number;
-    temp_avg?: number;
-    icon?: string;
+    tempMin: number;
+    tempMax: number;
+    tempAvg: number;
+    icon: string;
     condition: string;
-    wind_speed: number;
-    pressure_mm: number;
+    windSpeed: number;
+    pressureMm: number;
     humidity: number;
 };
 
-export const WeatherCard = ({
+export const WeatherCard: FC<TWeatherTabsProps> = ({
     date,
-    temp_avg,
-    temp_max,
-    temp_min,
+    tempAvg,
+    tempMax,
+    tempMin,
     icon,
     condition,
-    wind_speed,
-    pressure_mm,
+    windSpeed,
+    pressureMm,
     humidity,
-}: WeatherTabsProps) => {
+}) => {
     const { Text } = Typography;
     return (
         <Card style={{height: '410px'}}>
             <Space align="start" style={{display: 'flex', justifyContent: 'space-between'}}>
                 <Space direction="vertical">
-                    <Text style={{fontSize: '24px'}}>{longDateFormatter(date)}</Text>
-                    <Text>Средняя температура: {temp_avg}°</Text>
+                    <Text style={{fontSize: '24px'}}>{fullDateFormatter(date)}</Text>
+                    <Text>Средняя температура: {tempAvg}°</Text>
                     <Space style={{height: '30px'}}>
                         <Text>{conditionTypes[condition as keyof typeof conditionTypes]}</Text>
-                        <img src={`https://yastatic.net/weather/i/icons/funky/dark/${icon}.svg`} height="30px"/>
+                        <img src={`https://yastatic.net/weather/i/icons/funky/dark/${icon}.svg`} width="30" height="30" loading="lazy" alt="weather_icon" />
                     </Space>
-                    <Text>Скорость ветра: {wind_speed} м/с</Text>
-                    <Text>Атмосферное давление: {pressure_mm} мм рт.ст.</Text>
+                    <Text>Скорость ветра: {windSpeed} м/с</Text>
+                    <Text>Атмосферное давление: {pressureMm} мм рт.ст.</Text>
                     <Text>Влажность: {humidity}%</Text>
                 </Space>
                 <Space direction='vertical' style={{textAlign: 'right'}}>
-                    <Text style={{fontSize: '24px'}}>Днем {temp_max}°</Text>
-                    <Text style={{fontSize: '16px'}}>Ночью {temp_min}°</Text>
+                    <Text style={{fontSize: '24px'}}>Днем {tempMax}°</Text>
+                    <Text style={{fontSize: '16px'}}>Ночью {tempMin}°</Text>
                 </Space>
             </Space>
         </Card>

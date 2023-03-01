@@ -1,17 +1,19 @@
-import { Card, Space, Typography } from "antd";
-import { Weather } from "../../store/types";
-import { conditionTypes } from "./constants";
-import { timeFormatter } from "./utils";
+import React, { FC } from 'react'
+import { Card, Space, Typography } from "antd"
+import { TFact, TInfo } from "../../store/types"
+import { conditionTypes } from "./constants"
+import { timeFormatter } from '../../utils/timeFormatter'
 
-type CurrentWeatherProps = {
- weather: Weather;
-
+type TCurrentWeatherProps = {
+ weather: {
+  now_dt: number;
+  info: TInfo;
+  fact: TFact;
+ };
 }
 
-export const CurrentWeather = ({weather}: CurrentWeatherProps) => {
+export const CurrentWeather: FC<TCurrentWeatherProps> = ({weather: {now_dt, info, fact}}) => {
   const { Text } = Typography;
-  const info = weather.info;
-  const factWeather = weather.fact;
 
   return (
      <Card style={{width: '400px', height: '410px', marginTop: '62px'}}>
@@ -19,16 +21,16 @@ export const CurrentWeather = ({weather}: CurrentWeatherProps) => {
                 <Space style={{width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'start'}}>
                   <Space direction="vertical">
                     <Text style={{fontSize: '24px'}}>Сегодня</Text>
-                    <Text style={{fontSize: '48px'}}>{factWeather.temp}°</Text>
-                    <Text>Ощущается как: {factWeather.feels_like}</Text>
-                    <Text>{conditionTypes[factWeather.condition as keyof typeof conditionTypes]}</Text>
+                    <Text style={{fontSize: '48px'}}>{fact.temp}°</Text>
+                    <Text>Ощущается как: {fact.feels_like}</Text>
+                    <Text>{conditionTypes[fact.condition as keyof typeof conditionTypes]}</Text>
                   </Space>
-                  <img src={`https://yastatic.net/weather/i/icons/funky/dark/${factWeather.icon}.svg`} width="124px"/>
+                  <img src={`https://yastatic.net/weather/i/icons/funky/dark/${fact.icon}.svg`} width="124" height="124" loading="lazy" alt="weather_icon" />
                 </Space>
-                <Text>Сейчас: {timeFormatter(weather.now_dt.toString())}</Text>
-                <Text>Скорость ветра: {factWeather.wind_speed} м/с</Text>
-                <Text>Атмосферное давление: {factWeather.pressure_mm} мм рт.ст.</Text>
-                <Text>Влажность: {factWeather.humidity}%</Text>
+                <Text>Сейчас: {timeFormatter(now_dt.toString())}</Text>
+                <Text>Скорость ветра: {fact.wind_speed} м/с</Text>
+                <Text>Атмосферное давление: {fact.pressure_mm} мм рт.ст.</Text>
+                <Text>Влажность: {fact.humidity}%</Text>
                 <Text>Широта: {info.lat}, долгота: {info.lon}</Text>
                 <Text>Часовой пояс: {info.tzinfo.name}</Text>
             </Space>

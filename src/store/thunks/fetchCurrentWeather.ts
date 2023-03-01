@@ -1,6 +1,6 @@
-import { WeatherService } from "../../services/WeatherService";
-import { AppDispatch } from "../store";
-import { currentWeatherSlice } from "../slices/currentWeatherSlice";
+import { WeatherService } from "../../services/WeatherService"
+import { AppDispatch } from "../store"
+import { currentWeatherSlice } from "../slices/currentWeatherSlice"
 
 export const fetchCurrentWeather = (lat: number, lon: number) => async (dispatch: AppDispatch) => {
   try {
@@ -12,6 +12,6 @@ export const fetchCurrentWeather = (lat: number, lon: number) => async (dispatch
       dispatch(currentWeatherSlice.actions.fetchCurrentWeatherError(res))
     }
   } catch (error) {
-    console.log(error);
+    console.debug(error);
   }
 }

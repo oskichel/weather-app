@@ -1,12 +1,12 @@
-import axios, { AxiosResponse } from "axios";
-import { Weather } from "../store/types";
+import axios, { AxiosResponse } from "axios"
+import { TWeather } from "../store/types"
 
 export class WeatherService {
-  static getCurrentWeather(lat: number, lon: number): Promise<AxiosResponse<Weather>> {
-    return axios.get<Weather>('/weather', {
+  static getCurrentWeather(lat: number, lon: number): Promise<AxiosResponse<TWeather>> {
+    return axios.get<TWeather>('/weather', {
       params: {
-        lat: lat,
-        lon: lon,
+        lat,
+        lon,
         lang: 'ru_RU',
         limit: 7,
         hours: false,
